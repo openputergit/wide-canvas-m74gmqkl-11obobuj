@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleSense</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #000;
+            color: #fff;
+        }
+        .gradient-bg {
+            background: linear-gradient(45deg, #6b21a8, #3b0764);
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .chatbot-container {
+            height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Onboarding Section -->
+    <div id="onboarding" class="px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Welcome to MuscleSense</h1>
+        
+        <div class="space-y-6">
+            <h2 class="text-xl font-semibold mb-4">Select Your Goal</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="selectGoal('Fat Loss')" class="gradient-bg p-4 rounded-lg text-white hover:opacity-90 transition">
+                    <i class="bi bi-lightning-charge text-2xl"></i>
+                    <p>Fat Loss</p>
+                </button>
+                <button onclick="selectGoal('Muscle Gain')" class="gradient-bg p-4 rounded-lg text-white hover:opacity-90 transition">
+                    <i class="bi bi-trophy text-2xl"></i>
+                    <p>Muscle Gain</p>
+                </button>
+                <button onclick="selectGoal('Lean Muscle')" class="gradient-bg p-4 rounded-lg text-white hover:opacity-90 transition">
+                    <i class="bi bi-person text-2xl"></i>
+                    <p>Lean Muscle</p>
+                </button>
+                <button onclick="selectGoal('General Fitness')" class="gradient-bg p-4 rounded-lg text-white hover:opacity-90 transition">
+                    <i class="bi bi-heart text-2xl"></i>
+                    <p>General Fitness</p>
+                </button>
+            </div>
+        </div>
+
+        <form id="userDetailsForm" class="mt-8 space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1">Age</label>
+                <input type="number" class="w-full p-2 rounded bg-gray-800 text-white" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Weight (kg)</label>
+                <input type="number" class="w-full p-2 rounded bg-gray-800 text-white" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Height (cm)</label>
+                <input type="number" class="w-full p-2 rounded bg-gray-800 text-white" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Body Fat %</label>
+                <input type="number" class="w-full p-2 rounded bg-gray-800 text-white" required>
+            </div>
+            <button type="submit" class="w-full gradient-bg py-3 rounded-lg font-semibold">Continue</button>
+        </form>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="hidden px-4 py-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Dashboard</h2>
+            <button class="p-2 rounded-full gradient-bg">
+                <i class="bi bi-person-circle text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="gradient-bg rounded-lg p-4">
+                <svg class="progress-ring w-20 h-20 mx-auto" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#4B5563" stroke-width="8"/>
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="8" stroke-dasharray="283" stroke-dashoffset="70"/>
+                </svg>
+                <p class="text-center mt-2">Daily Goal</p>
+            </div>
+            <div class="gradient-bg rounded-lg p-4">
+                <h3 class="text-lg font-semibold">Steps</h3>
+                <p class="text-3xl font-bold">8,432</p>
+                <p class="text-sm opacity-75">Goal: 10,000</p>
+            </div>
+        </div>
+
+        <!-- Macros Tracking -->
+        <div class="bg-gray-900 rounded-lg p-4 mb-6">
+            <h3 class="text-lg font-semibold mb-4">Today's Macros</h3>
+            <div class="space-y-3">
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span>Protein</span>
+                        <span>120g / 150g</span>
+                    </div>
+                    <div class="h-2 bg-gray-700 rounded">
+                        <div class="h-full gradient-bg rounded" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span>Carbs</span>
+                        <span>200g / 250g</span>
+                    </div>
+                    <div class="h-2 bg-gray-700 rounded">
+                        <div class="h-full gradient-bg rounded" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span>Fats</span>
+                        <span>45g / 60g</span>
+                    </div>
+                    <div class="h-2 bg-gray-700 rounded">
+                        <div class="h-full gradient-bg rounded" style="width: 70%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workout Section -->
+        <div class="bg-gray-900 rounded-lg p-4 mb-6">
+            <h3 class="text-lg font-semibold mb-4">Today's Workout</h3>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="font-medium">Push Workout</h4>
+                        <p class="text-sm text-gray-400">5 exercises · 45 mins</p>
+                    </div>
+                    <button class="gradient-bg px-4 py-2 rounded">Start</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Assistant -->
+        <div class="fixed bottom-0 left-0 w-full p-4">
+            <button onclick="toggleChat()" class="gradient-bg w-full py-3 rounded-lg font-semibold">
+                <i class="bi bi-chat-dots me-2"></i>AI Assistant
+            </button>
+        </div>
+    </div>
+
+    <!-- Chat Interface -->
+    <div id="chatInterface" class="hidden fixed inset-0 bg-black bg-opacity-95 p-4">
+        <div class="h-full flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold">AI Assistant</h3>
+                <button onclick="toggleChat()" class="p-2">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            
+            <div class="chatbot-container flex-1 space-y-4 mb-4">
+                <div class="bg-gray-800 rounded-lg p-3 max-w-[80%]">
+                    Hi! I'm your AI fitness assistant. How can I help you today?
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <input type="text" id="chatInput" placeholder="Type your message..." 
+                    class="flex-1 p-3 rounded-lg bg-gray-800 text-white">
+                <button onclick="sendMessage()" class="gradient-bg px-4 rounded-lg">
+                    <i class="bi bi-send"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedGoal = '';
+        
+        function selectGoal(goal) {
+            selectedGoal = goal;
+            document.querySelectorAll('button').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-purple-500');
+            });
+            event.target.closest('button').classList.add('ring-2', 'ring-purple-500');
+        }
+
+        document.getElementById('userDetailsForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if(!selectedGoal) {
+                alert('Please select a fitness goal');
+                return;
+            }
+            document.getElementById('onboarding').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+        });
+
+        function toggleChat() {
+            const chatInterface = document.getElementById('chatInterface');
+            chatInterface.classList.toggle('hidden');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if(!message) return;
+
+            const chatContainer = document.querySelector('.chatbot-container');
+            
+            // User message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'bg-purple-900 rounded-lg p-3 max-w-[80%] ml-auto';
+            userDiv.textContent = message;
+            chatContainer.appendChild(userDiv);
+
+            // AI response (simulated)
+            setTimeout(() => {
+                const aiDiv = document.createElement('div');
+                aiDiv.className = 'bg-gray-800 rounded-lg p-3 max-w-[80%]';
+                aiDiv.textContent = "I understand you're asking about " + message + ". Let me help you with that...";
+                chatContainer.appendChild(aiDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 1000);
+
+            input.value = '';
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Handle enter key in chat
+        document.getElementById('chatInput').addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
